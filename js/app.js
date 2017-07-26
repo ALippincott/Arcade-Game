@@ -18,20 +18,20 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
     this.x = -100;
     this.y = yPossible[r];
-    
+    this.speed = getRandomInt(75,300);
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    var speed = getRandomInt(75,300);
+  
     if(this.x >= 500){
        r = getRandomInt(0,3);
        var  yPossible =[50, 140, 225];
        this.x = -100;
        this.y = yPossible[r];
     };
-   this.x += speed * dt;
+   this.x += this.speed * dt;
     if(((player.x <(this.x + 40))&&(player.x > (this.x - 40))) && (player.y < (this.y+40)&& (player.y > (this.y - 40)))){
         player.y = 400;
         player.x = 200;
@@ -47,7 +47,7 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var player = function() {
+var Player = function() {
     
     this.x = 200;
     this.y = 400;
@@ -55,15 +55,15 @@ var player = function() {
     this.sprite = 'images/char-boy.png';
 };
 
-player.prototype.update = function () {
+Player.prototype.update = function () {
 
 };
 
-player.prototype.render = function () {
+Player.prototype.render = function () {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-player.prototype.handleInput = function (e) {
+Player.prototype.handleInput = function (e) {
     if( e === 'up' && this.y <=  56 ) {
         this.y = 500;
         this.x = 200;
@@ -90,7 +90,7 @@ player.prototype.handleInput = function (e) {
 // Place the player object in a variable called player
 //var enemy = enemy();
 var allEnemies = [];
-var player = new player(); 
+var player = new Player(); 
 var e1 = new Enemy();
 var e2= new Enemy();
 var e3 = new Enemy();
